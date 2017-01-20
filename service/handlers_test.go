@@ -2,7 +2,7 @@ package service
 
 import (
 	"bytes"
-	"fmt"
+	"encoding/json"
 	"github.com/unrolled/render"
 	"io/ioutil"
 	"net/http"
@@ -66,5 +66,13 @@ func TestCreateMatch(t *testing.T) {
 		}
 	}
 
-	fmt.Printf("Payload: %s", string(payload))
+	var matchResponse newMatchResponse
+	err = json.Unmarshal(payload, &matchResponse)
+	if err != nil {
+		t.Errorf("Could not unmarshal payload into newMatchResponse object")
+	}
+
+	if matchResponse.ID == "" || !strings.Contains(loc[0], matchResponse.ID) {
+		t.Error("matchResponse.Id does not match Location header")
+	}
 }
