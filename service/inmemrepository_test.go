@@ -20,8 +20,10 @@ func TestAddMatchShowsUpInRepository(t *testing.T) {
 		t.Errorf("Expected to have 1 match in the repository, got %d", len(matches))
 	}
 
-	if matches[0].Players[0].Name != "bob" {
-		t.Errorf("Player 1's name should have been bob, got %s", matches[0].Players[0].Name)
+	if matches[0].PlayerBlack != "bob" {
+	}
+	if matches[0].PlayerWhite != "alfred" {
+		t.Errorf("Player 2's name should have been alfred, got %s", matches[0].PlayerWhite)
 	}
 }
 
