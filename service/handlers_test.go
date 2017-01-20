@@ -3,6 +3,7 @@ package service
 import (
 	"bytes"
 	"encoding/json"
+	"github.com/cloudnativego/gogo-engine"
 	"github.com/unrolled/render"
 	"io/ioutil"
 	"net/http"
@@ -79,5 +80,11 @@ func TestCreateMatch(t *testing.T) {
 	matches := repo.getMatches()
 	if len(matches) != 1 {
 		t.Errorf("Expected a match repo of 1 match, got size %d", len(matches))
+	}
+
+	var match gogo.Match
+	match = matches[0]
+	if match.GridSize != matchResponse.GridSize {
+		t.Errorf("Expected repo match and HTTP response gridsize to match. Got %d and %d", match.GridSize, matchResponse.GridSize)
 	}
 }
